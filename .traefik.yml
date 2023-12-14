@@ -1,0 +1,10 @@
+displayName: Permit User Agent
+type: middleware
+
+import: github.com/ret2binsh/traefik-plugin-permituseragent
+
+summary: '[Demo] Permit traffic based on User-Agent'
+
+testData:
+  UserAgent: "testing"
+  Url: "https://www.google.com"
