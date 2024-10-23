@@ -4,10 +4,9 @@ package traefik_plugin_permituseragent
 import (
 	"context"
 	"fmt"
+	"log"
 	"net/http"
 )
-
-const typeName = "PermitUserAgent"
 
 // Config holds the plugin configuration.
 type Config struct {
@@ -28,7 +27,6 @@ type permitUserAgent struct {
 	next    http.Handler
 	userAgent string
 	url string
-	logger *zerolog.Logger
 }
 
 // New creates and returns a plugin instance.
@@ -47,7 +45,6 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 		next:    next,
 		userAgent: config.UserAgent,
 		url: config.Url,
-		logger: logger,
 	}, nil
 }
 

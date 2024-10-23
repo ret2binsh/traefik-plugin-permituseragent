@@ -1,8 +1,8 @@
 module github.com/ret2binsh/traefik-plugin-permituseragent
 
-go 1.23.0
+go 1.22.0
 
-toolchain go1.23.2
+toolchain go1.22.6
 
 require (
 	github.com/rs/zerolog v1.33.0
