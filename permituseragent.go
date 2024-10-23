@@ -36,6 +36,8 @@ func New(_ context.Context, next http.Handler, config *Config, name string) (htt
 		return nil, fmt.Errorf(name, " must have UserAgent value set.")
 	}
 
+	log.Printf("Loading %s plugin with settings: url -> %s useragent -> %s", name, config.Url, config.UserAgent)
+
 	return &permitUserAgent{
 		name:    name,
 		next:    next,
@@ -46,6 +48,7 @@ func New(_ context.Context, next http.Handler, config *Config, name string) (htt
 
 func (p *permitUserAgent) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	if req != nil {
+		log.Printf("Checking UserAgent for connection from: %s", req.RemoteAddr)
 		userAgent := req.UserAgent()
 
 		// if the request useragent doesn't match our defined useragent
@@ -55,6 +58,8 @@ func (p *permitUserAgent) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 			rw.Header().Set("Location", p.url)
 			rw.WriteHeader(http.StatusFound)
 			return
+		} else {
+			log.Printf("Successful UserAgent match: %s", userAgent)
 		}
 	}
 
